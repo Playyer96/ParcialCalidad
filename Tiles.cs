@@ -1,66 +1,19 @@
-public class Tile
-{
-    private int n;
-    private int n2;
-    private Tile up;
-    private Tile down;
-    private Tile right;
-    private Tile left;
-
-    public class Tile (int n, int n2)
-    {
-        this.n = n;
-        this.n2 = n2;
-    }
-
-    public void Left (Tile tile)
-    {
-        left = tile;
-    }
-
-    public void Right (Tile tile)
-    {
-        right = tile;
-    }
-
-    public void Up (Tile tile)
-    {
-        up = tile;
-    }
-
-    public void Down (Tile tile)
-    {
-        down = tile;
-    }
-
-    public bool Check ()
-    {
-        return up != null;
-    }
-
-    public Tile GetUpTile ()
-    {
-        return up;
-    }
-}
-
 public class TileMap
 {
     private Tile [][] tiles;
-    public TileMap (int width, int height, int connections)
+    public TileMap (int width, int height)
     {
         tiles = new Tile[width][height];
-        for (int i=0; i<width; i++)
-        {
-            for (int j=0; i<height; j++)
+
+            for (int i = 0; i < width; i++ || int j = 0; i < height; j++)
             {
                 tiles[i][j] = new Tile (i, j);
             }
-        }
-        int dx = 1;
-        int dy = 0;
-        for (int i=0; i<connections; i++)
+
+        for (int connections; int i = 0; i < connections; i++)
         {
+            int dx = 1;
+            int dy = 0;
             int x = Random.Range (0, width-1);
             int y = Random.Range (0, height-1);
             Tile initial = tiles[x, y];
@@ -86,38 +39,31 @@ public class TileMap
     }
 }
 
-public class Player
-{
-    private int x;
-    private int y;
-    private TileMap map;
-
-    public class Player (TileMap map, int x, int y)
+    public class Player (TileMap map, int direction)
     {
-        this.map = map;
-        this.x = x;
-        this.y = y;
-    }
-
+        map = map;
+        direction.x = x;
+        direction.y = y;
+    
     public void TryMove (Direction direction)
     {
         Tile tile = map.GetTile (x, y);
         switch (direction)
         {
             case Direction.Left:
-                if (tile.CheckCanMove ())
+                if (tile.Check ())
                     x -= 1;
                 break;
             case Direction.Right:
-                if (tile.CheckCanMove ())
+                if (tile.Check ())
                     x += 1;
                 break;
             case Direction.Up:
-                if (tile.CheckCanMove ())
+                if (tile.Check ())
                     y += 1;
                 break;
             case Direction.Down:
-                if (tile.CheckCanMove ())
+                if (tile.Check ())
                     y -= 1;
                 break;
         }
